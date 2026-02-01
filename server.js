@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://flam-d7y3.onrender.com'|| '*',
     methods: ['GET', 'POST'],
   },
 });
@@ -483,7 +483,7 @@ app.get('/api/room/:roomId/history', (req, res) => {
   );
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
