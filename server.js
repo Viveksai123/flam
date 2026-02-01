@@ -483,7 +483,19 @@ app.get('/api/room/:roomId/history', (req, res) => {
   );
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const next = require('next');
+
+const dev = false;
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
+
+nextApp.prepare().then(() => {
+  // Serve Next frontend for ALL non-API routes
+  app.all('*', (req, res) => handle(req, res));
+
+  const PORT = process.env.PORT || 3000;
+
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
